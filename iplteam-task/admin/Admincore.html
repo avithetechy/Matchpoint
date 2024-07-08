@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Data Example</title>
+</head>
+<body>
+    <div id="dataContainer"></div>
+
+    <script>
+        // Function to make a GET request to the server
+        function getData() {
+            // Make a GET request to the server
+            fetch('http://localhost:3300/adminblock')
+                .then(response => {
+                    // Check if the response is successful
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Parse the JSON response
+                    return response.json();
+                })
+                .then(data => {
+                    // Call a function to render the data into the div
+                    console.log(data[0]);
+                    renderData(data[0]);
+                })
+                .catch(error => {
+                    // Log any errors to the console
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        // Function to render the data into the div
+        function renderData(data) {
+            // Get a reference to the div
+            const dataContainer = document.getElementById('dataContainer');
+
+            const table = document.createElement('table');
+
+            
+
+
+// Construct HTML content using template literals
+            const htmlContent = `
+              <div>
+                <p>Sno: ${data.sno}</p>
+                <p>Book Name: ${data.bookname}</p>
+                <p>Author: ${data.author}</p>
+                <p>Published Year: ${data.published_year}</p>
+                <p>Quantity Available: ${data.quantity_available}</p>
+              </div>`
+              dataContainer.innerHTML=htmlContent;
+
+            }
+
+        // Call the function to fetch data when the page loads
+        window.onload = getData;
+    </script>
+</body>
+</html>
